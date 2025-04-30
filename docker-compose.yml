@@ -1,0 +1,13 @@
+services:
+  concert-notifier:
+    build: .
+    container_name: concert-notifier
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TZ=Europe/Berlin
+    volumes:
+      - .:/usr/src/app
+      - ./logs:/var/log
+    entrypoint: ["cron", "-f"]
